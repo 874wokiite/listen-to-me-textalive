@@ -12,7 +12,8 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "textalive-app-api": "^0.3.2"
+    "textalive-app-api": "^0.3.2",
+    "textalive-react-api": "^0.3.2"
   },
   "devDependencies": {
     "@types/node": "^20",
