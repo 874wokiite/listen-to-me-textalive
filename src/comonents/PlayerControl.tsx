@@ -41,3 +41,5 @@ export const PlayerControl: React.FC<any> = ({ disabled, player }) => {
     </div>
   );
 };
+
+export default PlayerControl;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
 import { PlayerControl } from "@/comonents/PlayerControl";
 import ChangeMusic from "./ChangeMusic";
+import AlivingControl from "./AlivingControl";
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
@@ -34,6 +35,7 @@ const Body = () => {
       onAppReady: (app) => {
         console.log("--- [app] initialized as TextAlive app ---");
         console.log("managed:", app.managed);
+        player.volume = musicVolume;
         if (!app.songUrl) {
           player.createFromSongUrl(tracks[currentTrackIndex]);
         }
@@ -41,7 +43,6 @@ const Body = () => {
       },
 
       onVideoReady: (video) => {
-        console.log("本体の音量", player.volume);
         let word = player.video.firstWord;
         while (word && word.next) {
           word.animate = (now, unit) => {
@@ -107,22 +108,9 @@ const Body = () => {
     speechSynthesis.speak(utterance);
   };
 
-  // 音量設定ボタンのハンドラー
-  const handleVolumeChange = (
-    textVol: React.SetStateAction<any>,
-    musicVol: React.SetStateAction<any>
-  ) => {
-    setTextVolume(textVol);
-    setMusicVolume(musicVol);
-    if (player) {
-      player.volume = musicVol;
-      console.log("更新されたで", player.volume);
-    }
-  };
-
   return (
     <>
-      {player && video && (
+      {player && video ? (
         <div>
           <span>{phrase}</span>
           <div>
@@ -130,9 +118,11 @@ const Body = () => {
             <p>{player.data.song.name}</p>
           </div>
           <div>
-            <button onClick={() => handleVolumeChange(1, 0)}>0%</button>
-            <button onClick={() => handleVolumeChange(0.8, 20)}>50%</button>
-            <button onClick={() => handleVolumeChange(0, 60)}>100%</button>
+            <AlivingControl
+              setTextVolume={setTextVolume}
+              setMusicVolume={setMusicVolume}
+              player={player}
+            />
             <div>
               <ChangeMusic
                 setCurrentTrackIndex={setCurrentTrackIndex}
@@ -145,6 +135,11 @@ const Body = () => {
               </div>
             )}
           </div>
+        </div>
+      ) : (
+        <div className="loading">
+          <p>Loading...</p> {/* ここに任意のローディングインジケータを表示 */}
+          {/* 例えば CSS でスタイルされたスピナーなど */}
         </div>
       )}
     </>
