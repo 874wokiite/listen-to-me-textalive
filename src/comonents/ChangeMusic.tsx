@@ -1,10 +1,6 @@
 import React from "react";
 
-const ChangeMusic: React.FC<any> = ({
-  currentTrackIndex,
-  setCurrentTrackIndex,
-  totalTracks,
-}) => {
+const ChangeMusic: React.FC<any> = ({ setCurrentTrackIndex, totalTracks }) => {
   const handlePreviousTrack = () => {
     setCurrentTrackIndex((prevIndex: number) =>
       prevIndex === 0 ? totalTracks - 1 : prevIndex - 1

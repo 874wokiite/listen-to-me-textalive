@@ -41,7 +41,6 @@ const Body = () => {
       },
 
       onVideoReady: (video) => {
-        player.volume = musicVolume;
         console.log("本体の音量", player.volume);
         let word = player.video.firstWord;
         while (word && word.next) {
@@ -71,22 +70,16 @@ const Body = () => {
         }
         setVideo(video);
       },
+      onTimerReady: () => {
+        setPlayer(player);
+      },
     };
     player.addListener(playerListener);
-    setPlayer(player);
     return () => {
       console.log("--- [app] shutdown ---");
       player.removeListener(playerListener);
     };
   }, []);
-
-  useEffect(() => {
-    // プレイヤーの音量を更新
-    if (player) {
-      player.volume = musicVolume;
-      console.log("更新されたで", player.volume);
-    }
-  }, [musicVolume]);
 
   useEffect(() => {
     if (text && text !== lastText) {
@@ -96,11 +89,12 @@ const Body = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastText, text]);
 
+  // 前後の曲に切り替わった時に更新をする
   useEffect(() => {
     if (player && currentTrackIndex !== undefined) {
       player
         .createFromSongUrl(tracks[currentTrackIndex])
-        .then(() => player.play())
+        .then(() => player.requestPlay())
         .catch((error) => console.error("Error loading track:", error));
     }
   }, [currentTrackIndex, player]);
@@ -115,45 +109,32 @@ const Body = () => {
 
   // 音量設定ボタンのハンドラー
   const handleVolumeChange = (
-    textVol: React.SetStateAction<number>,
-    musicVol: React.SetStateAction<number>
+    textVol: React.SetStateAction<any>,
+    musicVol: React.SetStateAction<any>
   ) => {
     setTextVolume(textVol);
     setMusicVolume(musicVol);
+    if (player) {
+      player.volume = musicVol;
+      console.log("更新されたで", player.volume);
+    }
   };
 
   return (
     <>
-      {video && (
+      {player && video && (
         <div>
-          <span id="text">{phrase}</span>
+          <span>{phrase}</span>
+          <div>
+            <p>{player.data.song.artist.name}</p>
+            <p>{player.data.song.name}</p>
+          </div>
           <div>
             <button onClick={() => handleVolumeChange(1, 0)}>0%</button>
             <button onClick={() => handleVolumeChange(0.8, 20)}>50%</button>
             <button onClick={() => handleVolumeChange(0, 60)}>100%</button>
-            {/* <div>
-              <button
-                onClick={() =>
-                  setCurrentTrackIndex((prevIndex) =>
-                    prevIndex === 0 ? tracks.length - 1 : prevIndex - 1
-                  )
-                }
-              >
-                前の曲へ戻る
-              </button>
-              <button
-                onClick={() =>
-                  setCurrentTrackIndex(
-                    (prevIndex) => (prevIndex + 1) % tracks.length
-                  )
-                }
-              >
-                次の曲へ
-              </button>{" "}
-            </div> */}
             <div>
               <ChangeMusic
-                currentTrackIndex={currentTrackIndex}
                 setCurrentTrackIndex={setCurrentTrackIndex}
                 totalTracks={tracks.length}
               />
