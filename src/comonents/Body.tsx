@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { useEffect, useState } from "react";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
-import { PlayerControl } from "@/comonents/PlayerControl";
-import ChangeMusic from "./ChangeMusic";
+
+import { A11y, Mousewheel } from "swiper/modules";
+import React from "react";
 import AlivingControl from "./AlivingControl";
+import { PlayerControl } from "@/comonents/PlayerControl";
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
@@ -13,7 +20,7 @@ const Body = () => {
   const [lastText, setLastText] = useState("");
   const [textVolume, setTextVolume] = useState(0); // 読み上げの音量の初期値を0に設定
   const [musicVolume, setMusicVolume] = useState(60); // 音楽の音量の初期値を60に設定
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(3);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const tracks = [
     "https://piapro.jp/t/hZ35/20240130103028",
@@ -108,32 +115,86 @@ const Body = () => {
     speechSynthesis.speak(utterance);
   };
 
+  const handleSlideChange = (swiper: {
+    realIndex: React.SetStateAction<number>;
+  }) => {
+    setCurrentTrackIndex(swiper.realIndex); // realIndexを使うように変更
+  };
+
   return (
     <>
-      {player && video ? (
+      {player && video && app ? (
         <div>
+          <div>現在のスライド: {currentTrackIndex}</div>
           <span>{phrase}</span>
-          <div>
-            <p>{player.data.song.artist.name}</p>
-            <p>{player.data.song.name}</p>
+          <AlivingControl
+            setTextVolume={setTextVolume}
+            setMusicVolume={setMusicVolume}
+            player={player}
+          />
+          <div className="controls">
+            <PlayerControl disabled={app.managed} player={player} />
           </div>
           <div>
-            <AlivingControl
-              setTextVolume={setTextVolume}
-              setMusicVolume={setMusicVolume}
-              player={player}
-            />
-            <div>
-              <ChangeMusic
-                setCurrentTrackIndex={setCurrentTrackIndex}
-                totalTracks={tracks.length}
-              />
-            </div>
-            {player && app && (
-              <div className="controls">
-                <PlayerControl disabled={app.managed} player={player} />
-              </div>
-            )}
+            <Swiper
+              direction="vertical"
+              modules={[A11y, Mousewheel]}
+              slidesPerView={1}
+              spaceBetween={0}
+              mousewheel={{
+                invert: false,
+                forceToAxis: true,
+                releaseOnEdges: true,
+                sensitivity: 1,
+              }}
+              className="mySwiper"
+              autoHeight={false}
+              onSlideChange={handleSlideChange}
+              loop={true}
+            >
+              <SwiperSlide>
+                Slide 1
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                Slide 2
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                Slide 3
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                Slide 4
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                Slide 5
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                Slide 6
+                <div>
+                  <p>{player.data.song.artist.name}</p>
+                  <p>{player.data.song.name}</p>
+                </div>
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
       ) : (

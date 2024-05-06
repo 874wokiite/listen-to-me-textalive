@@ -7,3 +7,27 @@
   height: 301px; /* 内容がscroll-boxよりも高いためスクロールが発生する */
   background: linear-gradient(to bottom, #fff, #ccc);
 }
+
+.swiper {
+  width: 100%;
+  height: 100vh; 
+}
+
+.swiper-slide {
+  height: 100vh;
+  text-align: center;
+  font-size: 36px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
