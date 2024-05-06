@@ -10,6 +10,7 @@ import { A11y, Mousewheel } from "swiper/modules";
 import React from "react";
 import AlivingControl from "./AlivingControl";
 import { PlayerControl } from "@/comonents/PlayerControl";
+import usePlayAndPause from "@/comonents/hooks/PlayAndPause";
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
@@ -21,6 +22,8 @@ const Body = () => {
   const [textVolume, setTextVolume] = useState(0); // 読み上げの音量の初期値を0に設定
   const [musicVolume, setMusicVolume] = useState(60); // 音楽の音量の初期値を60に設定
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const { togglePlayPause } = usePlayAndPause(player);
 
   const tracks = [
     "https://piapro.jp/t/hZ35/20240130103028",
@@ -151,6 +154,7 @@ const Body = () => {
               autoHeight={false}
               onSlideChange={handleSlideChange}
               loop={true}
+              onClick={togglePlayPause}
             >
               <SwiperSlide>
                 Slide 1
