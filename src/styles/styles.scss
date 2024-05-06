@@ -34,14 +34,24 @@
 
 .control-area {
   max-width: 380px;
+  width: 380px;
   border: 1px solid #ccc;
-  &__hello {
-    width: 100px;
-  }
 }
 
 .layout {
   &__background {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // 垂直方向の中心寄せに必要
+    justify-content: flex-start; // 水平方向の中心寄せ
+    height: 100vh;
+    width: 100%;
     background: #333333;
+  }
+
+  &__control-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -5,7 +5,9 @@ const Layout = () => {
   return (
     <>
       <div className="layout__background">
-        <Body />
+        <div className="layout__control-area">
+          <Body />
+        </div>
       </div>
     </>
   );
