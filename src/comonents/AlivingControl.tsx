@@ -16,21 +16,11 @@ export const AlivingControl: React.FC<any> = ({
     }
   };
 
-  const startAudio = () => {
-    // ここで音声を開始するためのロジックを実装
-    if (player) {
-      player.requestPlay(); // 例として音楽プレイヤーを再生する
-      console.log("音声再生開始");
-    }
-  };
-
   return (
     <div className="control">
       <button onClick={() => handleVolumeChange(1, 0)}>0%</button>
       <button onClick={() => handleVolumeChange(0.8, 20)}>50%</button>
       <button onClick={() => handleVolumeChange(0, 60)}>100%</button>
-      <button onClick={startAudio}>タップして音声を開始</button>{" "}
-      {/* 新しいボタンを追加 */}
     </div>
   );
 };
