@@ -23,6 +23,7 @@ const Body = () => {
   const [textVolume, setTextVolume] = useState(0); // 読み上げの音量の初期値を0に設定
   const [musicVolume, setMusicVolume] = useState(60); // 音楽の音量の初期値を60に設定
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(2); // 画像のインデックスを管理
 
   const { togglePlayPause } = usePlayAndPause(player);
 
@@ -125,15 +126,25 @@ const Body = () => {
     setCurrentTrackIndex(swiper.realIndex); // realIndexを使うように変更
   };
 
+  const handleSetImageIndex = (index: React.SetStateAction<number>) => {
+    setImageIndex(index); // 画像インデックスを設定する関数
+  };
+
   return (
     <>
       {player && video && app ? (
         <div className="control-area">
+          <img
+            src={`/images/miku${imageIndex}.png`}
+            alt=""
+            className="miku-image"
+          />
           <div className="aliving-control">
             <AlivingControl
               setTextVolume={setTextVolume}
               setMusicVolume={setMusicVolume}
               player={player}
+              setImageIndex={handleSetImageIndex}
             />
           </div>
           <div className="music-information">
@@ -159,8 +170,8 @@ const Body = () => {
             >
               {tracks.map((track) => (
                 <SwiperSlide key={track}>
-                  <div>
-                    <p>{phrase}</p>
+                  <div className="lyrics__layout">
+                    <p className="fontsize__lyrics lyrics">{phrase}</p>
                   </div>
                 </SwiperSlide>
               ))}

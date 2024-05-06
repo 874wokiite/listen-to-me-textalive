@@ -1,13 +1,28 @@
+.fontsize {
+  &__body {
+    font-size: 16px;
+  }
+
+  &__caption {
+    font-size: 12px;
+  }
+
+  &__lyrics {
+    font-size: 24px;
+  }
+}
+
+
 .swiper {
   width: 100%;
-  height: 100vh; 
+  height: 100svh; 
 }
 
 .swiper-slide {
-  height: 100vh;
+  height: 100svh;
   text-align: center;
   font-size: 36px;
-  background: #fff;
+  background: transparent;
 
   /* Center slide text vertically */
   display: flex;
@@ -25,7 +40,7 @@
 .scroll-area {
   width: 100%;
   // position: absolute;
-  // z-index: 0;
+  z-index: 2;
   top: 0;
 }
 
@@ -33,8 +48,9 @@
   position: relative;
   max-width: 380px;
   width: 380px;
-  height: 100vh;
+  height: 100svh;
   border: 1px solid #ccc;
+  background: #fff;
 }
 
 .layout {
@@ -58,7 +74,7 @@
 .music-information {
   position: absolute;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   bottom: 0;
   left: 0;
 
@@ -91,4 +107,32 @@
   z-index: 2;
   bottom: 100px;
 
+}
+
+.lyrics {
+  background: #ffffffd2;
+  padding: 4px;
+  border-radius: 2px;
+  max-width: 320px;
+  word-wrap: break-word; /* 古いブラウザではこれが必要 */
+  overflow-wrap: break-word; /* 幅を超えた単語も改行する */
+
+
+  &__layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 40%;
+  }
+}
+
+.miku-image {
+  height: 100svh;
+  position: absolute;
+  z-index: 1;
+  top: 50%;       /* 親要素の上端から50%の位置に設定 */
+  left: 50%;      /* 親要素の左端から50%の位置に設定 */
+  transform: translate(-50%, -50%);  /* 画像の中心が親要素の中央に来るように調整 */
 }

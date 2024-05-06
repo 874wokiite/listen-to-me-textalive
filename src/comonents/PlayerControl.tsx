@@ -42,9 +42,11 @@ export const PlayerControl: React.FC<any> = ({ disabled, player }) => {
         />
       </div>
       <div className="music-information__layout">
-        <p className="music-information__song-name">{player.data.song.name}</p>
-        <p className="music-information__artist-name">
-          <span>by</span>
+        <p className="music-information__song-name fontsize__body">
+          {player.data.song.name}
+        </p>
+        <p className="music-information__artist-name fontsize__caption">
+          <span>by </span>
           {player.data.song.artist.name}
         </p>
       </div>
