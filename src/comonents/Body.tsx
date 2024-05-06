@@ -127,7 +127,7 @@ const Body = () => {
   return (
     <>
       {player && video && app ? (
-        <div>
+        <div className="control-area">
           <div>現在のスライド: {currentTrackIndex}</div>
           <span>{phrase}</span>
           <AlivingControl

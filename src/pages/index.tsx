@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Body from "@/comonents/Body";
+import Layout from "@/comonents/Layout";
 // import LogApp from "@/components/LogApp";
 
 const App = () => {
   return (
     <div>
-      <h1>TextAlive App</h1>
-      <Body />
+      <Layout />
     </div>
   );
 };
