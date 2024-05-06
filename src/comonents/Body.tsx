@@ -139,7 +139,7 @@ const Body = () => {
             alt=""
             className="miku-image"
           />
-          <div className="aliving-control">
+          <div className="aliving-control__layout">
             <AlivingControl
               setTextVolume={setTextVolume}
               setMusicVolume={setMusicVolume}

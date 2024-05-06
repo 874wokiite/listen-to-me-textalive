@@ -48,10 +48,25 @@ export const AlivingControl: React.FC<any> = ({
   };
 
   return (
-    <div className="control">
-      <button onClick={() => handleVolumeChange(1, 0, 0)}>0%</button>
-      <button onClick={() => handleVolumeChange(0.8, 20, 1)}>50%</button>
-      <button onClick={() => handleVolumeChange(0, 60, 2)}>100%</button>
+    <div className="aliving-control fontsize__caption">
+      <button
+        onClick={() => handleVolumeChange(1, 0, 0)}
+        className="aliving-control__button"
+      >
+        0%
+      </button>
+      <button
+        onClick={() => handleVolumeChange(0.8, 20, 1)}
+        className="aliving-control__button"
+      >
+        50%
+      </button>
+      <button
+        onClick={() => handleVolumeChange(0, 60, 2)}
+        className="aliving-control__button"
+      >
+        100%
+      </button>
     </div>
   );
 };
