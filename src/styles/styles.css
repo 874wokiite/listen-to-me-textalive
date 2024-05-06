@@ -1,0 +1,9 @@
+.scroll-box {
+  height: 300px;
+  overflow: auto; /* スクロールバーを有効にする */
+}
+
+.scroll-area {
+  height: 301px; /* 内容がscroll-boxよりも高いためスクロールが発生する */
+  background: linear-gradient(to bottom, #fff, #ccc);
+}
