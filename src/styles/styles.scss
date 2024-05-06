@@ -1,13 +1,3 @@
-.scroll-box {
-  height: 300px;
-  overflow: auto; /* スクロールバーを有効にする */
-}
-
-.scroll-area {
-  height: 301px; /* 内容がscroll-boxよりも高いためスクロールが発生する */
-  background: linear-gradient(to bottom, #fff, #ccc);
-}
-
 .swiper {
   width: 100%;
   height: 100vh; 
@@ -32,9 +22,18 @@
   object-fit: cover;
 }
 
+.scroll-area {
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+}
+
 .control-area {
+  position: relative;
   max-width: 380px;
   width: 380px;
+  height: 100vh;
   border: 1px solid #ccc;
 }
 
@@ -53,5 +52,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.music-information {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+
+  &__layout {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    background: #e6e6e6;
+  }
+  
+  &__song-name {
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  &__artist-name {
+    white-space: nowrap;
+  }
+
+  &__seekbar {
+    height: 16px;
+    align-items: end;
   }
 }

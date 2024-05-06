@@ -1,42 +1,51 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { PlayerSeekbar } from "textalive-react-api";
 
 export const PlayerControl: React.FC<any> = ({ disabled, player }) => {
-  const [status, setStatus] = useState("stop");
+  const sliderStyles = {
+    track: {
+      backgroundColor: "#ddd",
+      height: "16px",
+      borderRadius: "0",
+    },
+    active: {
+      backgroundColor: "#4CAF50",
+      height: "16px",
+      borderRadius: "0",
+    },
+    thumb: {
+      backgroundColor: "transparent",
+      width: "16px",
+      height: "16px",
+      borderRadius: "0",
+      boxShadow: "none",
+    },
+    disabled: {
+      backgroundColor: "#ccc",
+      borderRadius: "0",
+    },
+  };
 
   useEffect(() => {
-    const listener = {
-      onPlay: () => setStatus("play"),
-      onPause: () => setStatus("pause"),
-      onStop: () => setStatus("stop"),
-    };
-    player.addListener(listener);
+    // Player instance might be needed to manage within component lifecycle
     return () => {
-      player.removeListener(listener);
+      // Clean up player instance if necessary when component unmounts
     };
   }, [player]);
 
-  const handlePlay = useCallback(
-    () => player && player.requestPlay(),
-    [player]
-  );
-  const handlePause = useCallback(
-    () => player && player.requestPause(),
-    [player]
-  );
-  const handleStop = useCallback(
-    () => player && player.requestStop(),
-    [player]
-  );
-
   return (
-    <div className="control">
-      <button onClick={status !== "play" ? handlePlay : handlePause}>
-        {status !== "play" ? "再生" : "一時停止"}
-      </button>
-      <button onClick={handleStop}>停止</button>
-      <div className="seekbar">
-        <PlayerSeekbar player={!disabled && player} />
+    <div>
+      <div className="music-information__seekbar">
+        <PlayerSeekbar
+          player={!disabled ? player : undefined}
+          styles={sliderStyles}
+        />
+      </div>
+      <div className="music-information__layout">
+        <p className="music-information__song-name">{player.data.song.name}</p>
+        <p className="music-information__artist-name">
+          {player.data.song.artist.name}
+        </p>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useEffect, useState } from "react";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
+import { PlayerSeekbar } from "textalive-react-api";
 
 import { A11y, Mousewheel } from "swiper/modules";
 import React from "react";
@@ -128,17 +129,15 @@ const Body = () => {
     <>
       {player && video && app ? (
         <div className="control-area">
-          <div>現在のスライド: {currentTrackIndex}</div>
-          <span>{phrase}</span>
           <AlivingControl
             setTextVolume={setTextVolume}
             setMusicVolume={setMusicVolume}
             player={player}
           />
-          <div className="controls">
+          <div className="music-information">
             <PlayerControl disabled={app.managed} player={player} />
           </div>
-          <div>
+          <div className="scroll-area">
             <Swiper
               direction="vertical"
               modules={[A11y, Mousewheel]}
@@ -161,6 +160,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -168,6 +168,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -175,6 +176,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -182,6 +184,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -189,6 +192,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -196,6 +200,7 @@ const Body = () => {
                 <div>
                   <p>{player.data.song.artist.name}</p>
                   <p>{player.data.song.name}</p>
+                  <p>{phrase}</p>
                 </div>
               </SwiperSlide>
             </Swiper>
