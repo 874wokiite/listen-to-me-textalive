@@ -129,11 +129,13 @@ const Body = () => {
     <>
       {player && video && app ? (
         <div className="control-area">
-          <AlivingControl
-            setTextVolume={setTextVolume}
-            setMusicVolume={setMusicVolume}
-            player={player}
-          />
+          <div className="aliving-control">
+            <AlivingControl
+              setTextVolume={setTextVolume}
+              setMusicVolume={setMusicVolume}
+              player={player}
+            />
+          </div>
           <div className="music-information">
             <PlayerControl disabled={app.managed} player={player} />
           </div>
@@ -155,54 +157,13 @@ const Body = () => {
               loop={true}
               onClick={togglePlayPause}
             >
-              <SwiperSlide>
-                Slide 1
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                Slide 2
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                Slide 3
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                Slide 4
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                Slide 5
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                Slide 6
-                <div>
-                  <p>{player.data.song.artist.name}</p>
-                  <p>{player.data.song.name}</p>
-                  <p>{phrase}</p>
-                </div>
-              </SwiperSlide>
+              {tracks.map((track) => (
+                <SwiperSlide key={track}>
+                  <div>
+                    <p>{phrase}</p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
