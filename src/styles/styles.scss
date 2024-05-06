@@ -31,3 +31,17 @@
   height: 100%;
   object-fit: cover;
 }
+
+.control-area {
+  max-width: 380px;
+  border: 1px solid #ccc;
+  &__hello {
+    width: 100px;
+  }
+}
+
+.layout {
+  &__background {
+    background: #333333;
+  }
+}
