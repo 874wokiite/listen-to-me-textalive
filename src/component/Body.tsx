@@ -6,9 +6,9 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { A11y, Mousewheel } from "swiper/modules";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
-import { PlayerControl } from "./PlayerControl";
+import { PlayerControl } from "./ControlPlayer";
 import { usePlayAndPause } from "@/component/hooks/PlayAndPause";
-import { AlivingControl } from "./AlivingControl";
+import { AlivingControl } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
 
 //楽曲

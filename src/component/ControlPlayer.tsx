@@ -9,7 +9,7 @@ export const PlayerControl: React.FC<any> = ({ disabled, player }) => {
       borderRadius: "0",
     },
     active: {
-      backgroundColor: "#4CAF50",
+      backgroundColor: "#71CCC4",
       height: "16px",
       borderRadius: "0",
     },

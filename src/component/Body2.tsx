@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { A11y, Mousewheel } from "swiper/modules";
+import React, { useState, useEffect } from "react";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
-import { PlayerControl } from "./PlayerControl";
+import { PlayerControl } from "./ControlPlayer";
 import { usePlayAndPause } from "@/component/hooks/PlayAndPause";
-import { AlivingControl } from "./AlivingControl";
+import { AlivingControl } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
+import ControlSlide from "./ControlSlide";
 
 //楽曲
 const tracks = [
@@ -34,6 +29,7 @@ const Body2 = () => {
   const [mikuValue, setMikuValue] = useState(0);
   const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null);
   const { togglePlayPause: playPause, status } = usePlayAndPause(player);
+  const [isTrackLoaded, setIsTrackLoaded] = useState(false);
 
   const initializePlayer = () => {
     const newPlayer = new Player({
@@ -59,6 +55,8 @@ const Body2 = () => {
       },
       onTimerReady: () => {
         setPlayer(newPlayer);
+        setIsTrackLoaded(true); // ここでルーディング終わってOK
+        console.log();
       },
     };
 
@@ -103,7 +101,11 @@ const Body2 = () => {
     if (player) {
       player
         .createFromSongUrl(tracks[swiper.realIndex])
-        .then(() => player.requestPlay())
+        .then(() => {
+          player.requestPlay();
+          setText("");
+          setPhrase("");
+        })
         .catch((error) => console.error("Error loading track:", error));
     }
   };
@@ -115,6 +117,8 @@ const Body2 = () => {
     } else if (status === "pause" && prevMikuValue !== null) {
       setMikuValue(prevMikuValue);
       setPrevMikuValue(null);
+    } else if (status === "stop") {
+      setMikuValue(1);
     }
     playPause();
   };
@@ -133,7 +137,7 @@ const Body2 = () => {
 
   return (
     <>
-      {player && video && app ? (
+      {player && video && app && isTrackLoaded ? (
         <div className="control-area">
           <div className="miku-image">
             <MikuAnimation setMikuValue={mikuValue} />
@@ -146,36 +150,16 @@ const Body2 = () => {
               setMikuValue={setMikuValue}
             />
           </div>
-
           <div className="music-information">
             <PlayerControl disabled={app.managed} player={player} />
           </div>
           <div className="scroll-area">
-            <Swiper
-              direction="vertical"
-              modules={[A11y, Mousewheel]}
-              slidesPerView={1}
-              spaceBetween={0}
-              mousewheel={{
-                invert: false,
-                forceToAxis: true,
-                releaseOnEdges: true,
-                sensitivity: 1,
-              }}
-              className="mySwiper"
-              autoHeight={false}
-              onSlideChange={handleSlideChange}
-              loop={true}
-              onClick={handleTogglePlayPause}
-            >
-              {tracks.map((track) => (
-                <SwiperSlide key={track}>
-                  <div className="lyrics__layout">
-                    <p className="fontsize__lyrics lyrics">{phrase}</p>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <ControlSlide
+              handleSlideChange={handleSlideChange}
+              handleTogglePlayPause={handleTogglePlayPause}
+              tracks={tracks}
+              phrase={phrase}
+            />
           </div>
         </div>
       ) : (
