@@ -7,16 +7,16 @@ export const MikuAnimation = () => {
     src: "/images/mikuanimation.riv",
     autoplay: true,
     stateMachines: STATE_MACHINE_NAME,
-    artboard: "MikuAnimation",
+    artboard: "MikuAnimation_SP",
   });
   const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
   return (
-    <div className="control-area">
+    <div>
       <div className="miku">
         <RiveComponent />
       </div>
-      <div className="aliving-control fontsize__caption">
+      {/* <div className="aliving-control fontsize__caption">
         <button
           onClick={() => animation && (animation.value = 3)}
           className="aliving-control__button"
@@ -41,7 +41,7 @@ export const MikuAnimation = () => {
         >
           停止
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
