@@ -149,13 +149,13 @@
   height: 100svh;
   position: absolute;
   z-index: 1;
-  top: 50%;       /* 親要素の上端から50%の位置に設定 */
+  bottom: 150px;       /* 親要素の上端から50%の位置に設定 */
   left: 50%;      /* 親要素の左端から50%の位置に設定 */
-  transform: translate(-50%, -50%);  /* 画像の中心が親要素の中央に来るように調整 */
+  transform: translate(-50%, 0%);  /* 画像の中心が親要素の中央に来るように調整 */
 }
 
 .miku {
-  height: 100%;
-  width: 600px;
+  height: 800px;
+  width: 800px;
   bottom: 0;
 }

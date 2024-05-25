@@ -1,6 +1,13 @@
+import React from "react";
 import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
 
-export const MikuAnimation = () => {
+interface MikuAnimationProps {
+  setMikuValue: number;
+}
+
+export const MikuAnimation: React.FC<MikuAnimationProps> = ({
+  setMikuValue,
+}) => {
   const STATE_MACHINE_NAME = "State Machine 1";
   const INPUT_NAME = "EmotionAmount";
   const { rive, RiveComponent } = useRive({
@@ -11,37 +18,15 @@ export const MikuAnimation = () => {
   });
   const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
+  if (animation) {
+    animation.value = setMikuValue;
+  }
+
   return (
     <div>
       <div className="miku">
         <RiveComponent />
       </div>
-      {/* <div className="aliving-control fontsize__caption">
-        <button
-          onClick={() => animation && (animation.value = 3)}
-          className="aliving-control__button"
-        >
-          0%
-        </button>
-        <button
-          onClick={() => animation && (animation.value = 2)}
-          className="aliving-control__button"
-        >
-          50%
-        </button>
-        <button
-          onClick={() => animation && (animation.value = 1)}
-          className="aliving-control__button"
-        >
-          100%
-        </button>
-        <button
-          onClick={() => animation && (animation.value = 0)}
-          className="aliving-control__button"
-        >
-          停止
-        </button>
-      </div> */}
     </div>
   );
 };

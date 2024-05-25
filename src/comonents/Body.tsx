@@ -24,10 +24,27 @@ const Body = () => {
   const [textVolume, setTextVolume] = useState(0); // 読み上げの音量の初期値を0に設定
   const [musicVolume, setMusicVolume] = useState(60); // 音楽の音量の初期値を60に設定
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [imageIndex, setImageIndex] = useState(2); // 画像のインデックスを管理
+  const [mikuValue, setMikuValue] = useState(0); //ミクのアニメーションのステータス管理
+  const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null); // 楽曲停止する前のミクの状態を保存
 
-  const { togglePlayPause } = usePlayAndPause(player);
+  // const { togglePlayPause } = usePlayAndPause(player);
+  const { togglePlayPause: playPause, status } = usePlayAndPause(player);
+  // const handleTogglePlayPause = () => {
+  //   playPause();
+  //   setMikuValue(0);
+  // };
+  const handleTogglePlayPause = () => {
+    if (status === "play") {
+      setPrevMikuValue(mikuValue);
+      setMikuValue(0);
+    } else if (status === "pause" && prevMikuValue !== null) {
+      setMikuValue(prevMikuValue);
+      setPrevMikuValue(null);
+    }
+    playPause();
+  };
 
+  //楽曲
   const tracks = [
     "https://piapro.jp/t/hZ35/20240130103028",
     "https://piapro.jp/t/--OD/20240202150903",
@@ -127,27 +144,22 @@ const Body = () => {
     setCurrentTrackIndex(swiper.realIndex); // realIndexを使うように変更
   };
 
-  const handleSetImageIndex = (index: React.SetStateAction<number>) => {
-    setImageIndex(index); // 画像インデックスを設定する関数
-  };
-
   return (
     <>
       {player && video && app ? (
         <div className="control-area">
-          <img
-            src={`/images/miku${imageIndex}.png`}
-            alt=""
-            className="miku-image"
-          />
+          <div className="miku-image">
+            <MikuAnimation setMikuValue={mikuValue} />
+          </div>
           <div className="aliving-control__layout">
             <AlivingControl
               setTextVolume={setTextVolume}
               setMusicVolume={setMusicVolume}
               player={player}
-              setImageIndex={handleSetImageIndex}
+              setMikuValue={setMikuValue}
             />
           </div>
+
           <div className="music-information">
             <PlayerControl disabled={app.managed} player={player} />
           </div>
@@ -167,7 +179,7 @@ const Body = () => {
               autoHeight={false}
               onSlideChange={handleSlideChange}
               loop={true}
-              onClick={togglePlayPause}
+              onClick={handleTogglePlayPause}
             >
               {tracks.map((track) => (
                 <SwiperSlide key={track}>

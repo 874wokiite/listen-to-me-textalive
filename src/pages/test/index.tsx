@@ -6,12 +6,7 @@ import MikuAnimation from "@/comonents/MikuAnimation ";
 // import LogApp from "@/components/LogApp";
 
 const App = () => {
-  return (
-    <div>
-      <MikuAnimation />
-      aaaaa
-    </div>
-  );
+  return <div>aaaaa</div>;
 };
 
 export default App;
