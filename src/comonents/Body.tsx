@@ -12,6 +12,7 @@ import React from "react";
 import AlivingControl from "./AlivingControl";
 import { PlayerControl } from "@/comonents/PlayerControl";
 import usePlayAndPause from "@/comonents/hooks/PlayAndPause";
+import MikuAnimation from "./MikuAnimation ";
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);

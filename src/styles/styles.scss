@@ -153,3 +153,9 @@
   left: 50%;      /* 親要素の左端から50%の位置に設定 */
   transform: translate(-50%, -50%);  /* 画像の中心が親要素の中央に来るように調整 */
 }
+
+.miku {
+  height: 100%;
+  width: 600px;
+  bottom: 0;
+}
