@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Body from "@/comonents/Body";
-import Layout from "@/comonents/Layout";
-import MikuAnimation from "@/comonents/MikuAnimation ";
+import Body from "@/component/Body";
+import Layout from "@/component/Layout";
+import MikuAnimation from "@/component/MikuAnimation";
 // import LogApp from "@/components/LogApp";
 
 const App = () => {

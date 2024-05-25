@@ -1,5 +1,5 @@
 import React from "react";
-import Body from "@/comonents/Body";
+import Body from "@/component/Body";
 
 const Layout = () => {
   return (
