@@ -1,38 +1,40 @@
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useEffect, useState } from "react";
-import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
-import { PlayerSeekbar } from "textalive-react-api";
-
 import { A11y, Mousewheel } from "swiper/modules";
-import React from "react";
-import AlivingControl from "./AlivingControl";
-import { PlayerControl } from "@/comonents/PlayerControl";
-import usePlayAndPause from "@/comonents/hooks/PlayAndPause";
-import MikuAnimation from "./MikuAnimation ";
+import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
+import { PlayerControl } from "./PlayerControl";
+import { usePlayAndPause } from "@/comonents/hooks/PlayAndPause";
+import { AlivingControl } from "./AlivingControl";
+import { MikuAnimation } from "./MikuAnimation";
+
+//楽曲
+const tracks = [
+  "https://piapro.jp/t/hZ35/20240130103028",
+  "https://piapro.jp/t/--OD/20240202150903",
+  "https://piapro.jp/t/XiaI/20240201203346",
+  "https://piapro.jp/t/Rejk/20240202164429",
+  "https://piapro.jp/t/ELIC/20240130010349",
+  "https://piapro.jp/t/xEA7/20240202002556",
+];
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
-  const [app, setApp] = useState<IPlayerApp | null>(null); //added
+  const [app, setApp] = useState<IPlayerApp | null>(null);
   const [video, setVideo] = useState<IVideo | null>(null);
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
   const [lastText, setLastText] = useState("");
-  const [textVolume, setTextVolume] = useState(0); // 読み上げの音量の初期値を0に設定
-  const [musicVolume, setMusicVolume] = useState(60); // 音楽の音量の初期値を60に設定
+  const [textVolume, setTextVolume] = useState(0);
+  const [musicVolume, setMusicVolume] = useState(60);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [mikuValue, setMikuValue] = useState(0); //ミクのアニメーションのステータス管理
-  const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null); // 楽曲停止する前のミクの状態を保存
-
-  // const { togglePlayPause } = usePlayAndPause(player);
+  const [mikuValue, setMikuValue] = useState(0);
+  const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null);
   const { togglePlayPause: playPause, status } = usePlayAndPause(player);
-  // const handleTogglePlayPause = () => {
-  //   playPause();
-  //   setMikuValue(0);
-  // };
+
   const handleTogglePlayPause = () => {
     if (status === "play") {
       setPrevMikuValue(mikuValue);
@@ -43,16 +45,6 @@ const Body = () => {
     }
     playPause();
   };
-
-  //楽曲
-  const tracks = [
-    "https://piapro.jp/t/hZ35/20240130103028",
-    "https://piapro.jp/t/--OD/20240202150903",
-    "https://piapro.jp/t/XiaI/20240201203346",
-    "https://piapro.jp/t/Rejk/20240202164429",
-    "https://piapro.jp/t/ELIC/20240130010349",
-    "https://piapro.jp/t/xEA7/20240202002556",
-  ];
 
   useEffect(() => {
     const player = new Player({
