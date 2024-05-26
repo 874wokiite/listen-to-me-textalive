@@ -159,3 +159,15 @@
   width: 800px;
   bottom: 0;
 }
+
+.loading {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__animation {
+    height: 150px;
+    width: 150px;
+  }
+}
