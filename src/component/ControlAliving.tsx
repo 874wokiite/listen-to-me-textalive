@@ -3,6 +3,8 @@ export const AlivingControl: React.FC<any> = ({
   setMusicVolume,
   player,
   setMikuValue,
+  setPrevMikuValue,
+  status,
 }) => {
   const handleVolumeChange = (
     textVolume: number,
@@ -14,7 +16,9 @@ export const AlivingControl: React.FC<any> = ({
     if (player) {
       player.volume = musicVolume;
     }
-    setMikuValue(value); // 画像のインデックスを設定
+
+    if (status == "play") setMikuValue(value);
+    else setPrevMikuValue(value);
   };
 
   return (

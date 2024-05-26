@@ -154,6 +154,8 @@ const Body = () => {
               setMusicVolume={setMusicVolume}
               player={player}
               setMikuValue={setMikuValue}
+              setPrevMikuValue={setPrevMikuValue}
+              status={status}
             />
           </div>
           <div className="music-information">
