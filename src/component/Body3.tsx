@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { A11y, Mousewheel } from "swiper/modules";
 import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
 import { PlayerControl } from "./ControlPlayer";
 import { usePlayAndPause } from "@/component/hooks/PlayAndPause";
 import { AlivingControl } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
-import ControlSlide from "./ControlSlide";
-import Loading from "./Loading";
 
 //楽曲
 const tracks = [
@@ -31,6 +35,17 @@ const Body = () => {
   const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null);
   const { togglePlayPause: playPause, status } = usePlayAndPause(player);
 
+  const handleTogglePlayPause = () => {
+    if (status === "play") {
+      setPrevMikuValue(mikuValue);
+      setMikuValue(0);
+    } else if (status === "pause" && prevMikuValue !== null) {
+      setMikuValue(prevMikuValue);
+      setPrevMikuValue(null);
+    }
+    playPause();
+  };
+
   useEffect(() => {
     const player = new Player({
       app: {
@@ -50,9 +65,33 @@ const Body = () => {
       },
 
       onVideoReady: (video) => {
+        let word = player.video.firstWord;
+        while (word && word.next) {
+          word.animate = (now, unit) => {
+            if (
+              unit.startTime <= now &&
+              unit.endTime > now &&
+              text !== unit.text
+            ) {
+              setText(unit.text);
+            }
+          };
+          word = word.next;
+        }
+        let phrase = player.video.firstPhrase;
+        while (phrase && phrase.next) {
+          phrase.animate = (now, unit) => {
+            if (
+              unit.startTime <= now &&
+              unit.endTime > now &&
+              text !== unit.text
+            ) {
+              setPhrase(unit.text);
+            }
+          };
+          phrase = phrase.next;
+        }
         setVideo(video);
-        animateWords(player);
-        animatePhrases(player);
       },
       onTimerReady: () => {
         setPlayer(player);
@@ -65,85 +104,40 @@ const Body = () => {
     };
   }, []);
 
-  const animateWords = (player: Player) => {
-    let word = player.video?.firstWord;
-    while (word && word.next) {
-      word.animate = (now, unit) => {
-        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
-          setText(unit.text);
-        }
-      };
-      word = word.next;
+  useEffect(() => {
+    if (text && text !== lastText) {
+      speakText(text);
+      setLastText(text);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastText, text]);
 
-  const animatePhrases = (player: Player) => {
-    let phrase = player.video?.firstPhrase;
-    while (phrase && phrase.next) {
-      phrase.animate = (now, unit) => {
-        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
-          setPhrase(unit.text);
-        }
-      };
-      phrase = phrase.next;
+  // 前後の曲に切り替わった時に更新をする
+  useEffect(() => {
+    if (player && currentTrackIndex !== undefined) {
+      player
+        .createFromSongUrl(tracks[currentTrackIndex])
+        .then(() => player.requestPlay())
+        .catch((error) => {
+          console.error("Error loading track:", error);
+          alert("トラックの読み込みに失敗しました。再試行してください。");
+        });
     }
-  };
+  }, [currentTrackIndex, player]);
 
   const speakText = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
-    utterance.volume = textVolume;
-    utterance.rate = 1.5;
+    utterance.volume = textVolume; // ステートから音量を設定
+    utterance.rate = 1.5; // 読み上げ速度を設定
     speechSynthesis.speak(utterance);
   };
-
-  // 前後の曲に切り替わった時に更新をする
-  useEffect(() => {
-    const loadTrack = async () => {
-      if (player && currentTrackIndex !== undefined) {
-        try {
-          await player.createFromSongUrl(tracks[currentTrackIndex]);
-          player.requestStop();
-          setText("");
-          setPhrase("");
-        } catch (error) {
-          console.error("Error loading track:", error);
-          alert("トラックの読み込みに失敗しました。再試行してください。");
-        }
-      }
-    };
-
-    loadTrack();
-  }, [currentTrackIndex, player]);
 
   const handleSlideChange = (swiper: {
     realIndex: React.SetStateAction<number>;
   }) => {
     setCurrentTrackIndex(swiper.realIndex); // realIndexを使うように変更
   };
-
-  const handleTogglePlayPause = () => {
-    if (status === "play") {
-      setPrevMikuValue(mikuValue);
-      setMikuValue(0);
-    } else if (status === "pause" && prevMikuValue !== null) {
-      setMikuValue(prevMikuValue);
-      setPrevMikuValue(null);
-    } else {
-      setMikuValue(1);
-    }
-    playPause();
-  };
-
-  useEffect(() => {
-    if (text && text !== lastText) {
-      if (textVolume >= 0.8) {
-        speakText(text);
-      }
-      setLastText(text);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastText, text]);
 
   return (
     <>
@@ -160,22 +154,42 @@ const Body = () => {
               setMikuValue={setMikuValue}
             />
           </div>
+
           <div className="music-information">
             <PlayerControl disabled={app.managed} player={player} />
           </div>
           <div className="scroll-area">
-            <ControlSlide
-              handleSlideChange={handleSlideChange}
-              handleTogglePlayPause={handleTogglePlayPause}
-              tracks={tracks}
-              phrase={phrase}
-            />
+            <Swiper
+              direction="vertical"
+              modules={[A11y, Mousewheel]}
+              slidesPerView={1}
+              spaceBetween={0}
+              mousewheel={{
+                invert: false,
+                forceToAxis: true,
+                releaseOnEdges: true,
+                sensitivity: 1,
+              }}
+              className="mySwiper"
+              autoHeight={false}
+              onSlideChange={handleSlideChange}
+              loop={true}
+              onClick={handleTogglePlayPause}
+            >
+              {tracks.map((track) => (
+                <SwiperSlide key={track}>
+                  <div className="lyrics__layout">
+                    <p className="fontsize__lyrics lyrics">{phrase}</p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       ) : (
         <div className="loading">
-          <Loading />
-          なんじゃこれーーーーーー
+          <p>Loading...</p> {/* ここに任意のローディングインジケータを表示 */}
+          {/* 例えば CSS でスタイルされたスピナーなど */}
         </div>
       )}
     </>

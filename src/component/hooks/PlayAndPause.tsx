@@ -8,7 +8,6 @@ export const usePlayAndPause = (player: any) => {
     const listener = {
       onPlay: () => setStatus("play"),
       onPause: () => setStatus("pause"),
-      onStop: () => setStatus("stop"),
     };
     player.addListener(listener);
     return () => {
