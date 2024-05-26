@@ -20,7 +20,6 @@ const tracks = [
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
   const [app, setApp] = useState<IPlayerApp | null>(null);
-  const [video, setVideo] = useState<IVideo | null>(null);
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
   const [lastText, setLastText] = useState("");
@@ -49,12 +48,9 @@ const Body = () => {
         setApp(app);
       },
 
-      onVideoReady: (video) => {
-        setVideo(video);
+      onTimerReady: () => {
         animateWords(player);
         animatePhrases(player);
-      },
-      onTimerReady: () => {
         setPlayer(player);
       },
     };
@@ -147,7 +143,7 @@ const Body = () => {
 
   return (
     <>
-      {player && video && app ? (
+      {player && app ? (
         <div className="control-area">
           <div className="miku-image">
             <MikuAnimation setMikuValue={mikuValue} />
