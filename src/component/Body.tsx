@@ -26,8 +26,8 @@ const Body = () => {
   const [textVolume, setTextVolume] = useState(0);
   const [musicVolume, setMusicVolume] = useState(60);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [mikuValue, setMikuValue] = useState(0);
-  const [prevMikuValue, setPrevMikuValue] = useState<number | null>(null);
+  const [mikuValue, setMikuValue] = useState(1);
+  const [prevMikuValue, setPrevMikuValue] = useState(0);
   const { togglePlayPause: playPause, status } = usePlayAndPause(player);
 
   useEffect(() => {
@@ -100,6 +100,9 @@ const Body = () => {
         try {
           await player.createFromSongUrl(tracks[currentTrackIndex]);
           player.requestStop();
+          setPrevMikuValue(mikuValue);
+          setMikuValue(0);
+
           setText("");
           setPhrase("");
         } catch (error) {
@@ -122,11 +125,8 @@ const Body = () => {
     if (status === "play") {
       setPrevMikuValue(mikuValue);
       setMikuValue(0);
-    } else if (status === "pause" && prevMikuValue !== null) {
+    } else if (status === "pause" || status === "stop") {
       setMikuValue(prevMikuValue);
-      setPrevMikuValue(null);
-    } else {
-      setMikuValue(1);
     }
     playPause();
   };
