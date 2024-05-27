@@ -13,7 +13,7 @@ export const ControlSlide: React.FC<any> = ({
 }) => {
   return (
     <>
-      <div>
+      <div className="scroll-area">
         <Swiper
           direction="vertical"
           modules={[A11y, Mousewheel]}

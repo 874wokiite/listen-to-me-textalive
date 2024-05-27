@@ -145,30 +145,22 @@ const Body = () => {
     <>
       {player && app ? (
         <div className="control-area">
-          <div className="miku-image">
-            <MikuAnimation setMikuValue={mikuValue} />
-          </div>
-          <div className="aliving-control__layout">
-            <AlivingControl
-              setTextVolume={setTextVolume}
-              setMusicVolume={setMusicVolume}
-              player={player}
-              setMikuValue={setMikuValue}
-              setPrevMikuValue={setPrevMikuValue}
-              status={status}
-            />
-          </div>
-          <div className="music-information">
-            <PlayerControl disabled={app.managed} player={player} />
-          </div>
-          <div className="scroll-area">
-            <ControlSlide
-              handleSlideChange={handleSlideChange}
-              handleTogglePlayPause={handleTogglePlayPause}
-              tracks={tracks}
-              phrase={phrase}
-            />
-          </div>
+          <MikuAnimation setMikuValue={mikuValue} />
+          <AlivingControl
+            setTextVolume={setTextVolume}
+            setMusicVolume={setMusicVolume}
+            player={player}
+            setMikuValue={setMikuValue}
+            setPrevMikuValue={setPrevMikuValue}
+            status={status}
+          />
+          <PlayerControl disabled={app.managed} player={player} />
+          <ControlSlide
+            handleSlideChange={handleSlideChange}
+            handleTogglePlayPause={handleTogglePlayPause}
+            tracks={tracks}
+            phrase={phrase}
+          />
         </div>
       ) : (
         <div className="loading">

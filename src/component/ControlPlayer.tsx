@@ -34,7 +34,7 @@ export const PlayerControl: React.FC<any> = ({ disabled, player }) => {
   }, [player]);
 
   return (
-    <div>
+    <div className="music-information">
       <div className="music-information__seekbar">
         <PlayerSeekbar
           player={!disabled ? player : undefined}

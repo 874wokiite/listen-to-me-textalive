@@ -46,20 +46,23 @@
 
 .control-area {
   position: relative;
-  max-width: 380px;
-  width: 380px;
+  width: 432px;
+  max-width: 100%;
   height: 100svh;
   border: 1px solid #ccc;
   background: #fff;
 }
 
 .layout {
+  &__index {
+    height: 100svh;
+  }
   &__background {
     display: flex;
     flex-direction: column;
     align-items: center; // 垂直方向の中心寄せに必要
     justify-content: flex-start; // 水平方向の中心寄せ
-    height: 100vh;
+    height: 100svh;
     width: 100%;
     background: #333333;
   }
@@ -80,6 +83,7 @@
 
   &__layout {
     display: flex;
+    width: 100%;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
@@ -107,6 +111,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  z-index: 2;
+  bottom: 100px;
 
   &__layout {
     position: absolute;
@@ -145,19 +152,19 @@
   }
 }
 
-.miku-image {
+.miku-animation {
   height: 100svh;
   position: absolute;
   z-index: 1;
-  bottom: 150px;       /* 親要素の上端から50%の位置に設定 */
+  bottom: 64px;
   left: 50%;      /* 親要素の左端から50%の位置に設定 */
   transform: translate(-50%, 0%);  /* 画像の中心が親要素の中央に来るように調整 */
-}
 
-.miku {
-  height: 800px;
-  width: 800px;
-  bottom: 0;
+  &__image {
+    height: 800px;
+    width: 800px;
+    bottom: 0;
+  }
 }
 
 .loading {
@@ -170,4 +177,16 @@
     height: 150px;
     width: 150px;
   }
+}
+
+@media (max-width: 432px) {
+  // 432px以下のスタイル
+  .music-information {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  bottom: 0;
+
+}
+
 }

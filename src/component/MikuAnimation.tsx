@@ -23,8 +23,8 @@ export const MikuAnimation: React.FC<MikuAnimationProps> = ({
   }
 
   return (
-    <div>
-      <div className="miku">
+    <div className="miku-animation">
+      <div className="miku-animation__image">
         <RiveComponent />
       </div>
     </div>
