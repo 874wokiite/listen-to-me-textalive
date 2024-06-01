@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { IPlayerApp, IVideo, Player, PlayerListener } from "textalive-app-api";
+import { Player, PlayerListener } from "textalive-app-api";
 import { PlayerControl } from "./ControlPlayer";
-import { usePlayAndPause } from "@/component/hooks/PlayAndPause";
+import { usePlayAndPause } from "./hooks/PlayAndPause";
 import { AlivingControl } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
 import ControlSlide from "./ControlSlide";
 import Loading from "./Loading";
-
-//楽曲
-const tracks = [
-  "https://piapro.jp/t/hZ35/20240130103028",
-  "https://piapro.jp/t/--OD/20240202150903",
-  "https://piapro.jp/t/XiaI/20240201203346",
-  "https://piapro.jp/t/Rejk/20240202164429",
-  "https://piapro.jp/t/ELIC/20240130010349",
-  "https://piapro.jp/t/xEA7/20240202002556",
-];
+import { tracks } from "./configs/Tracks";
 
 const Body = () => {
   const [player, setPlayer] = useState<Player | null>(null);
-  const [app, setApp] = useState<IPlayerApp | null>(null);
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
   const [lastText, setLastText] = useState("");
@@ -37,26 +27,23 @@ const Body = () => {
       },
     });
 
-    const playerListener: PlayerListener = {
-      onAppReady: (app) => {
-        console.log("--- [app] initialized as TextAlive app ---");
-        console.log("managed:", app.managed);
-        player.volume = musicVolume;
-        if (!app.songUrl) {
-          player.createFromSongUrl(tracks[currentTrackIndex]);
-        }
-        setApp(app);
-      },
+    void player.createFromSongUrl(tracks[0].url).catch((error) => {
+      console.error("Error initializing track:", error);
+    });
 
+    const playerListener: PlayerListener = {
       onTimerReady: () => {
         animateWords(player);
         animatePhrases(player);
         setPlayer(player);
+        // playerが準備完了したら、ユーザーの操作を待ってから再生する
+        console.log("Player is ready");
       },
     };
+    // void player.createFromSongUrl(tracks[0].url, tracks[0].options);
     player.addListener(playerListener);
     return () => {
-      console.log("--- [app] shutdown ---");
+      console.log("--- [player] shutdown ---");
       player.removeListener(playerListener);
     };
   }, []);
@@ -98,16 +85,20 @@ const Body = () => {
     const loadTrack = async () => {
       if (player && currentTrackIndex !== undefined) {
         try {
-          await player.createFromSongUrl(tracks[currentTrackIndex]);
+          await player
+            .createFromSongUrl(
+              tracks[currentTrackIndex].url,
+              tracks[currentTrackIndex].options
+            )
+            .catch((error) => {
+              console.error("Error loading track:", error);
+              alert("トラックの読み込みに失敗しました。再試行してください。");
+            });
           player.requestStop();
           setPrevMikuValue(mikuValue);
           setMikuValue(0);
-
-          setText("");
-          setPhrase("");
         } catch (error) {
           console.error("Error loading track:", error);
-          alert("トラックの読み込みに失敗しました。再試行してください。");
         }
       }
     };
@@ -118,7 +109,7 @@ const Body = () => {
   const handleSlideChange = (swiper: {
     realIndex: React.SetStateAction<number>;
   }) => {
-    setCurrentTrackIndex(swiper.realIndex); // realIndexを使うように変更
+    setCurrentTrackIndex(swiper.realIndex);
   };
 
   const handleTogglePlayPause = () => {
@@ -138,12 +129,14 @@ const Body = () => {
       }
       setLastText(text);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastText, text]);
+
+  console.log(player ? "ある!" : "ない...");
+  console.log(player?.data.song.name ? "ある!" : "ない...");
 
   return (
     <>
-      {player && app ? (
+      {player ? (
         <div className="control-area">
           <MikuAnimation setMikuValue={mikuValue} />
           <AlivingControl
@@ -154,7 +147,7 @@ const Body = () => {
             setPrevMikuValue={setPrevMikuValue}
             status={status}
           />
-          <PlayerControl disabled={app.managed} player={player} />
+          <PlayerControl player={player} />
           <ControlSlide
             handleSlideChange={handleSlideChange}
             handleTogglePlayPause={handleTogglePlayPause}

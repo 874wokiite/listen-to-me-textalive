@@ -9,7 +9,7 @@ export const ControlSlide: React.FC<any> = ({
   handleSlideChange,
   handleTogglePlayPause,
   tracks,
-  phrase,
+  phrase = " ",
 }) => {
   return (
     <>
@@ -29,7 +29,10 @@ export const ControlSlide: React.FC<any> = ({
           autoHeight={false}
           onSlideChange={handleSlideChange}
           loop={true}
-          onClick={handleTogglePlayPause}
+          onClick={() => {
+            console.log("Swiper clicked");
+            handleTogglePlayPause();
+          }}
         >
           {tracks.map((track: number) => (
             <SwiperSlide key={track}>
