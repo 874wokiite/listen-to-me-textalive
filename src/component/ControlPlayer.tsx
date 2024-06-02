@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export const PlayerControl: React.FC<any> = ({ player }) => {
+export const ControlPlayer: React.FC<any> = ({ player }) => {
   // const sliderStyles = {
   //   track: {
   //     backgroundColor: "#ddd",
@@ -54,4 +54,4 @@ export const PlayerControl: React.FC<any> = ({ player }) => {
   );
 };
 
-export default PlayerControl;
+export default ControlPlayer;

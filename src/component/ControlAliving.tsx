@@ -1,4 +1,4 @@
-export const AlivingControl: React.FC<any> = ({
+export const ControlAliving: React.FC<any> = ({
   setTextVolume,
   setMusicVolume,
   player,
@@ -45,4 +45,4 @@ export const AlivingControl: React.FC<any> = ({
   );
 };
 
-export default AlivingControl;
+export default ControlAliving;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Player, PlayerListener } from "textalive-app-api";
-import { PlayerControl } from "./ControlPlayer";
+import { ControlPlayer } from "./ControlPlayer";
 import { usePlayAndPause } from "./hooks/PlayAndPause";
-import { AlivingControl } from "./ControlAliving";
+import { ControlAliving } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
 import ControlSlide from "./ControlSlide";
 import Loading from "./Loading";
@@ -139,7 +139,7 @@ const Body = () => {
       {player ? (
         <div className="control-area">
           <MikuAnimation setMikuValue={mikuValue} />
-          <AlivingControl
+          <ControlAliving
             setTextVolume={setTextVolume}
             setMusicVolume={setMusicVolume}
             player={player}
@@ -147,7 +147,7 @@ const Body = () => {
             setPrevMikuValue={setPrevMikuValue}
             status={status}
           />
-          <PlayerControl player={player} />
+          <ControlPlayer player={player} />
           <ControlSlide
             handleSlideChange={handleSlideChange}
             handleTogglePlayPause={handleTogglePlayPause}
