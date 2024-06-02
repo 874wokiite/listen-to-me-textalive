@@ -158,7 +158,7 @@ const Body = () => {
             handleTogglePlayPause={handleTogglePlayPause}
             tracks={tracks}
             phrase={phrase}
-            setPlayPauseValue={PlayPauseValue}
+            PlayPauseValue={PlayPauseValue}
           />
         </div>
       ) : (

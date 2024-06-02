@@ -2,11 +2,11 @@ import React from "react";
 import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
 
 interface ControlPlayPauseProps {
-  setPlayPauseValue: number;
+  PlayPauseValue: number;
 }
 
 export const ControlPlayPause: React.FC<ControlPlayPauseProps> = ({
-  setPlayPauseValue,
+  PlayPauseValue,
 }) => {
   const STATE_MACHINE_NAME = "State Machine 1";
   const INPUT_NAME = "PlayPauseValue";
@@ -19,7 +19,7 @@ export const ControlPlayPause: React.FC<ControlPlayPauseProps> = ({
   const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
   if (animation) {
-    animation.value = setPlayPauseValue;
+    animation.value = PlayPauseValue;
   }
 
   return (
