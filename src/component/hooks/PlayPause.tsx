@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 
-export const usePlayAndPause = (player: any) => {
+export const usePlayPause = (player: any) => {
   const [status, setStatus] = useState("stop");
 
   useEffect(() => {
@@ -24,4 +24,4 @@ export const usePlayAndPause = (player: any) => {
   return { togglePlayPause, status };
 };
 
-export default usePlayAndPause;
+export default usePlayPause;

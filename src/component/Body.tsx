@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Player, PlayerListener } from "textalive-app-api";
 import { ControlPlayer } from "./ControlPlayer";
-import { usePlayAndPause } from "./hooks/PlayAndPause";
+import { usePlayPause } from "./hooks/PlayPause";
 import { ControlAliving } from "./ControlAliving";
 import { MikuAnimation } from "./MikuAnimation";
 import ControlSlide from "./ControlSlide";
@@ -18,7 +18,7 @@ const Body = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
-  const { togglePlayPause: playPause, status } = usePlayAndPause(player);
+  const { togglePlayPause: playPause, status } = usePlayPause(player);
 
   useEffect(() => {
     const player = new Player({
