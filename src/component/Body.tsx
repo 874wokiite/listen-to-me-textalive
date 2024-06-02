@@ -18,6 +18,7 @@ const Body = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
+  const [PlayPauseValue, setPlayPauseValue] = useState(0);
   const { togglePlayPause: playPause, status } = usePlayPause(player);
 
   useEffect(() => {
@@ -116,8 +117,12 @@ const Body = () => {
     if (status === "play") {
       setPrevMikuValue(mikuValue);
       setMikuValue(0);
+      setPlayPauseValue(2);
+      console.log("PlayPauseValue", PlayPauseValue);
     } else if (status === "pause" || status === "stop") {
       setMikuValue(prevMikuValue);
+      setPlayPauseValue(1);
+      console.log("PlayPauseValue", PlayPauseValue);
     }
     playPause();
   };
@@ -153,6 +158,7 @@ const Body = () => {
             handleTogglePlayPause={handleTogglePlayPause}
             tracks={tracks}
             phrase={phrase}
+            setPlayPauseValue={PlayPauseValue}
           />
         </div>
       ) : (
