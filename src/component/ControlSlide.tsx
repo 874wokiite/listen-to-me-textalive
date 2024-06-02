@@ -11,7 +11,7 @@ export const ControlSlide: React.FC<any> = ({
   handleTogglePlayPause,
   tracks,
   phrase = " ",
-  PlayPauseValue,
+  playPauseValue,
 }) => {
   return (
     <>
@@ -46,7 +46,7 @@ export const ControlSlide: React.FC<any> = ({
                     handleTogglePlayPause();
                   }}
                 >
-                  <ControlPlayPause PlayPauseValue={PlayPauseValue} />
+                  <ControlPlayPause playPauseValue={playPauseValue} />
                 </button>
                 <p className="fontsize__lyrics lyrics">{phrase}</p>
               </div>

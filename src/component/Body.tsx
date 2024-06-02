@@ -18,7 +18,7 @@ const Body = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
-  const [PlayPauseValue, setPlayPauseValue] = useState(0);
+  const [playPauseValue, setPlayPauseValue] = useState(0);
   const { togglePlayPause: playPause, status } = usePlayPause(player);
 
   useEffect(() => {
@@ -98,6 +98,8 @@ const Body = () => {
           player.requestStop();
           setPrevMikuValue(mikuValue);
           setMikuValue(0);
+          setPlayPauseValue(0);
+          console.log("preMikuValue", prevMikuValue);
         } catch (error) {
           console.error("Error loading track:", error);
         }
@@ -118,11 +120,15 @@ const Body = () => {
       setPrevMikuValue(mikuValue);
       setMikuValue(0);
       setPlayPauseValue(2);
-      console.log("PlayPauseValue", PlayPauseValue);
+      console.log("PlayPauseValue", playPauseValue);
+      console.log("MikuValue", mikuValue);
+      console.log("preMikuValue", prevMikuValue);
     } else if (status === "pause" || status === "stop") {
       setMikuValue(prevMikuValue);
       setPlayPauseValue(1);
-      console.log("PlayPauseValue", PlayPauseValue);
+      console.log("PlayPauseValue", playPauseValue);
+      console.log("MikuValue", mikuValue);
+      console.log("preMikuValue", prevMikuValue);
     }
     playPause();
   };
@@ -143,7 +149,7 @@ const Body = () => {
     <>
       {player ? (
         <div className="control-area">
-          <MikuAnimation setMikuValue={mikuValue} />
+          <MikuAnimation mikuValue={mikuValue} />
           <ControlAliving
             setTextVolume={setTextVolume}
             setMusicVolume={setMusicVolume}
@@ -158,7 +164,7 @@ const Body = () => {
             handleTogglePlayPause={handleTogglePlayPause}
             tracks={tracks}
             phrase={phrase}
-            PlayPauseValue={PlayPauseValue}
+            playPauseValue={playPauseValue}
           />
         </div>
       ) : (

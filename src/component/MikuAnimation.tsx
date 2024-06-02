@@ -2,12 +2,10 @@ import React from "react";
 import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
 
 interface MikuAnimationProps {
-  setMikuValue: number;
+  mikuValue: number;
 }
 
-export const MikuAnimation: React.FC<MikuAnimationProps> = ({
-  setMikuValue,
-}) => {
+export const MikuAnimation: React.FC<MikuAnimationProps> = ({ mikuValue }) => {
   const STATE_MACHINE_NAME = "State Machine 1";
   const INPUT_NAME = "EmotionAmount";
   const { rive, RiveComponent } = useRive({
@@ -19,7 +17,7 @@ export const MikuAnimation: React.FC<MikuAnimationProps> = ({
   const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
   if (animation) {
-    animation.value = setMikuValue;
+    animation.value = mikuValue;
   }
 
   return (
