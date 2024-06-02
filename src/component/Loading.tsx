@@ -1,12 +1,16 @@
 import React from "react";
-import RiveComponent from "@rive-app/react-canvas";
+import { useRive } from "@rive-app/react-canvas";
+
 export const Loading = () => {
+  const { RiveComponent } = useRive({
+    src: "/images/mikuanimation.riv",
+    autoplay: true,
+    stateMachines: "State Machine 1",
+    artboard: "Loading",
+  });
   return (
     <div className="fontsize__body loading">
-      <RiveComponent
-        src="/images/mikuanimation.riv"
-        className="loading__animation"
-      />
+      <RiveComponent className="loading__animation" />
       Loading...
     </div>
   );

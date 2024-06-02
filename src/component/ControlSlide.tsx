@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import ControlPlayPause from "./ControlPlayPause";
 
 export const ControlSlide: React.FC<any> = ({
   handleSlideChange,
@@ -29,14 +30,23 @@ export const ControlSlide: React.FC<any> = ({
           autoHeight={false}
           onSlideChange={handleSlideChange}
           loop={true}
-          onClick={() => {
-            console.log("Swiper clicked");
-            handleTogglePlayPause();
-          }}
+          // onClick={() => {
+          //   console.log("Swiper clicked");
+          //   handleTogglePlayPause();
+          // }}
         >
           {tracks.map((track: number) => (
             <SwiperSlide key={track}>
               <div className="lyrics__layout">
+                <button
+                  className="control-play-pause__button-layout"
+                  onClick={() => {
+                    console.log("Swiper clicked");
+                    handleTogglePlayPause();
+                  }}
+                >
+                  <ControlPlayPause setPlayPauseValue={0} />
+                </button>
                 <p className="fontsize__lyrics lyrics">{phrase}</p>
               </div>
             </SwiperSlide>

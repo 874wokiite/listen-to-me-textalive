@@ -179,6 +179,17 @@
   }
 }
 
+.control-play-pause {
+  width: 200px;
+  height: 200px;
+  &__button-layout {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 @media (max-width: 432px) {
   // 432px以下のスタイル
   .music-information {
