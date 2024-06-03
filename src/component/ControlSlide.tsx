@@ -38,16 +38,16 @@ export const ControlSlide: React.FC<any> = ({
         >
           {tracks.map((track: number) => (
             <SwiperSlide key={track}>
+              <button
+                className="control-play-pause__button-layout"
+                onClick={() => {
+                  console.log("Swiper clicked");
+                  handleTogglePlayPause();
+                }}
+              >
+                <ControlPlayPause playPauseValue={playPauseValue} />
+              </button>
               <div className="lyrics__layout">
-                <button
-                  className="control-play-pause__button-layout"
-                  onClick={() => {
-                    console.log("Swiper clicked");
-                    handleTogglePlayPause();
-                  }}
-                >
-                  <ControlPlayPause playPauseValue={playPauseValue} />
-                </button>
                 <p className="fontsize__lyrics lyrics">{phrase}</p>
               </div>
             </SwiperSlide>

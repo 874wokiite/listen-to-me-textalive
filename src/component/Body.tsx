@@ -96,6 +96,8 @@ const Body = () => {
               alert("トラックの読み込みに失敗しました。再試行してください。");
             });
           player.requestStop();
+          setPhrase(" ");
+          setText(" ");
           setPrevMikuValue(mikuValue);
           setMikuValue(0);
           setPlayPauseValue(0);
