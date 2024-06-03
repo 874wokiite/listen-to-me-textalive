@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, Mousewheel } from "swiper/modules";
+import { A11y, Mousewheel, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,7 +18,7 @@ export const ControlSlide: React.FC<any> = ({
       <div className="scroll-area">
         <Swiper
           direction="vertical"
-          modules={[A11y, Mousewheel]}
+          modules={[A11y, Mousewheel, Pagination]}
           slidesPerView={1}
           spaceBetween={0}
           mousewheel={{
@@ -31,22 +31,26 @@ export const ControlSlide: React.FC<any> = ({
           autoHeight={false}
           onSlideChange={handleSlideChange}
           loop={true}
-          // onClick={() => {
-          //   console.log("Swiper clicked");
-          //   handleTogglePlayPause();
-          // }}
+          pagination={{
+            clickable: true,
+            el: ".swiper-pagination",
+            type: "bullets",
+          }}
         >
+          <div className="swiper-pagination"></div>
           {tracks.map((track: number) => (
             <SwiperSlide key={track}>
-              <button
-                className="control-play-pause__button-layout"
-                onClick={() => {
-                  console.log("Swiper clicked");
-                  handleTogglePlayPause();
-                }}
-              >
-                <ControlPlayPause playPauseValue={playPauseValue} />
-              </button>
+              <div className="control-play-pause__button-layout">
+                <button
+                  className="control-play-pause__button-layout"
+                  onClick={() => {
+                    console.log("Swiper clicked");
+                    handleTogglePlayPause();
+                  }}
+                >
+                  <ControlPlayPause playPauseValue={playPauseValue} />
+                </button>
+              </div>
               <div className="lyrics__layout">
                 <p className="fontsize__lyrics lyrics">{phrase}</p>
               </div>
