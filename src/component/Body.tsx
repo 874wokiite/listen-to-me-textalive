@@ -78,7 +78,14 @@ const Body = () => {
     utterance.lang = "ja-JP";
     utterance.volume = textVolume;
     utterance.rate = 1.5;
-    speechSynthesis.speak(utterance);
+    utterance.onerror = (event) => {
+      console.error("Speech synthesis error:", event.error);
+    };
+    try {
+      speechSynthesis.speak(utterance);
+    } catch (error) {
+      console.error("Error in speech synthesis:", error);
+    }
   };
 
   // 前後の曲に切り替わった時に更新をする
