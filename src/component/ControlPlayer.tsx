@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import SeekBar from "./Seekbar";
 
 export const ControlPlayer: React.FC<any> = ({ player }) => {
   // const sliderStyles = {
@@ -36,7 +37,7 @@ export const ControlPlayer: React.FC<any> = ({ player }) => {
     <>
       {player.data.song.name && player.data.song.artist.name ? (
         <div className="music-information">
-          <div className="music-information__seekbar"></div>
+          <SeekBar player={player} />
           <div className="music-information__layout">
             <p className="music-information__song-name fontsize__body">
               {player.data.song.name}

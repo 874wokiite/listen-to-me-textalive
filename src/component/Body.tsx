@@ -98,7 +98,7 @@ const Body = () => {
           player.requestStop();
           setPhrase(" ");
           setText(" ");
-          setPrevMikuValue(mikuValue);
+          if (mikuValue !== 0) setPrevMikuValue(mikuValue);
           setMikuValue(0);
           setPlayPauseValue(0);
           console.log("preMikuValue", prevMikuValue);
