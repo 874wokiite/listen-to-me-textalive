@@ -330,6 +330,18 @@
   }
 }
 
+.heart {
+  &__size {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.aliving-button {
+  width: 64px;
+  height: 192px;
+}
+
 @media (max-width: 432px) {
   // 432px以下のスタイル
   .control-area {

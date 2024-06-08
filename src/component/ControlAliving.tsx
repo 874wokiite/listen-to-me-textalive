@@ -1,3 +1,6 @@
+import AlivingButton from "./AlivingButton";
+import Heart from "./Heart";
+
 export const ControlAliving: React.FC<any> = ({
   setTextVolume,
   setMusicVolume,
@@ -23,6 +26,7 @@ export const ControlAliving: React.FC<any> = ({
 
   return (
     <div className="aliving-control fontsize__caption">
+      <Heart />
       <button
         onClick={() => handleVolumeChange(1, 0, 3)}
         className="aliving-control__button"
@@ -41,6 +45,7 @@ export const ControlAliving: React.FC<any> = ({
       >
         100%
       </button>
+      <AlivingButton alivingValue={1} />
     </div>
   );
 };
