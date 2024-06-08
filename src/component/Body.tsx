@@ -132,12 +132,18 @@ const Body = () => {
       console.log("PlayPauseValue", playPauseValue);
       console.log("MikuValue", mikuValue);
       console.log("preMikuValue", prevMikuValue);
+      if (player) {
+        player.requestPause();
+      }
     } else if (status === "pause" || status === "stop") {
       setMikuValue(prevMikuValue);
       setPlayPauseValue(1);
       console.log("PlayPauseValue", playPauseValue);
       console.log("MikuValue", mikuValue);
       console.log("preMikuValue", prevMikuValue);
+      if (player) {
+        player.requestPlay();
+      }
     }
     playPause();
   };

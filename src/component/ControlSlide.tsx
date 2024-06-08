@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import ControlPlayPause from "./ControlPlayPause";
+import { Key } from "react";
 
 export const ControlSlide: React.FC<any> = ({
   handleSlideChange,
@@ -38,8 +39,8 @@ export const ControlSlide: React.FC<any> = ({
           }}
         >
           <div className="swiper-pagination"></div>
-          {tracks.map((track: number) => (
-            <SwiperSlide key={track}>
+          {tracks.map((track: { url: Key | null | undefined }) => (
+            <SwiperSlide key={track.url}>
               <div className="control-play-pause__button-layout">
                 <button
                   className="control-play-pause__button-layout"
