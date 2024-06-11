@@ -9,9 +9,9 @@ export const Loading = () => {
     artboard: "Loading",
   });
   return (
-    <div className="fontsize__body loading">
+    <div className="loading">
       <RiveComponent className="loading__animation" />
-      Loading...
+      <span className="loading__font fontsize__body">LOADING...</span>
     </div>
   );
 };

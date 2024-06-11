@@ -183,10 +183,7 @@ const Body = () => {
           />
         </div>
       ) : (
-        <div className="loading">
-          <Loading />
-          なんじゃこれーーーーーー
-        </div>
+        <Loading />
       )}
     </>
   );
