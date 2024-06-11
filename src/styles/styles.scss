@@ -258,7 +258,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   position: absolute;
   z-index: 3;
   bottom: 80px;
@@ -311,15 +311,15 @@
 
 .miku-animation {
   height: 100svh;
-  position: absolute;
-  z-index: 1;
-  bottom: 48px;
-  left: 50%;      /* 親要素の左端から50%の位置に設定 */
-  transform: translate(-50%);  /* 画像の中心が親要素の中央に来るように調整 */
 
   &__image {
     height: 800px;
     width: 800px;
+    position: absolute;
+    z-index: 1;
+    bottom: 62px;
+    left: 50%;      /* 親要素の左端から50%の位置に設定 */
+    transform: translate(-50%);  /* 画像の中心が親要素の中央に来るように調整 */
   }
 }
 
@@ -385,5 +385,46 @@
     background-size: cover; /* 画像がエリア全体にフィットするように */
     background-position: top; /* 画像が中央に表示されるように */
   }
+  .layout {
+  &__index {
+    height: 100svh;
+  }
+  &__background {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // 垂直方向の中心寄せに必要
+    justify-content: flex-start; // 水平方向の中心寄せ
+    height: 100svh;
+    width: 100%;
+    background: linear-gradient(to bottom, #83C4FF, #FFDFFA);
+    background-size: 100%;
+
+    &__bottom {
+      display: none;
+    }
+
+    &__top {
+      display: none;
+    }
+  }
+}
+
 
 }
+
+@media (max-height: 700px) {
+  // 700px以下のスタイル
+  .miku-animation {
+    &__image {
+      height: 800px;
+      width: 800px;
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      left: 50%;      /* 親要素の左端から50%の位置に設定 */
+      transform: translate(-50%);  /* 画像の中心が親要素の中央に来るように調整 */
+    }
+  }
+
+}
+
