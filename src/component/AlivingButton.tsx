@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
 
 interface AlivingProps {
-  alivingValue: number;
+  onAliveChange: (value: number) => void;
 }
 
-export const AlivingButton: React.FC<AlivingProps> = ({ alivingValue }) => {
+export const AlivingButton: React.FC<AlivingProps> = ({ onAliveChange }) => {
   const STATE_MACHINE_NAME = "State Machine 1";
   const INPUT_NAME = "Alive";
   const { rive, RiveComponent } = useRive({
@@ -16,9 +16,11 @@ export const AlivingButton: React.FC<AlivingProps> = ({ alivingValue }) => {
   });
   const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
-  if (animation) {
-    animation.value = alivingValue;
-  }
+  useEffect(() => {
+    if (animation && typeof animation.value === "number") {
+      onAliveChange(animation.value);
+    }
+  }, [animation, onAliveChange]);
 
   return (
     <div>
