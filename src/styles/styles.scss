@@ -51,9 +51,8 @@
   flex-direction: column; // 縦方向に配置
 
   .swiper-pagination-bullet {
-    margin: 2px 0; // 縦方向の間隔
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background-color: rgba(0, 0, 0, 0.38);
     border-radius: 50%;
 
@@ -62,6 +61,7 @@
     }
   }
 }
+
 
 
 .control-area {
@@ -255,7 +255,6 @@
 
 
 .aliving-control {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
