@@ -20,11 +20,16 @@ const Body = () => {
   const [prevMikuValue, setPrevMikuValue] = useState(0);
   const [playPauseValue, setPlayPauseValue] = useState(0);
   const { togglePlayPause: playPause, status } = usePlayPause(player);
+  const playerToken = process.env.NEXT_PUBLIC_PLAYER_TOKEN;
+
+  if (!playerToken) {
+    throw new Error("NEXT_PUBLIC_PLAYER_TOKEN is not defined");
+  }
 
   useEffect(() => {
     const player = new Player({
       app: {
-        token: "YI8I8mIpotidyyxf",
+        token: playerToken,
       },
     });
 
