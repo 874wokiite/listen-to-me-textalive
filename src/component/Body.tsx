@@ -26,14 +26,15 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const { togglePlayPause: playPause, status } = usePlayPause(player);
   const playerToken = process.env.NEXT_PUBLIC_PLAYER_TOKEN;
 
-  if (!playerToken) {
-    throw new Error("NEXT_PUBLIC_PLAYER_TOKEN is not defined");
-  }
+  // if (!playerToken) {
+  //   throw new Error("NEXT_PUBLIC_PLAYER_TOKEN is not defined");
+  // }
+  // TODO: パブリック化するときに環境変数にする
 
   useEffect(() => {
     const player = new Player({
       app: {
-        token: playerToken,
+        token: "YI8I8mIpotidyyxf",
       },
     });
 
