@@ -10,7 +10,14 @@ export const Loading = () => {
   });
   return (
     <div className="loading">
-      <RiveComponent className="loading__animation" />
+      <div className="loading__animation__layout">
+        <div className="triangle__top"></div>
+        <RiveComponent className="loading__animation" />
+        <span className="fontsize__body loading__accent">
+          上下スワイプ<span className="loading__text">で楽曲切り替え</span>
+        </span>
+        <div className="triangle__bottom"></div>
+      </div>
       <span className="loading__font fontsize__body">LOADING...</span>
     </div>
   );

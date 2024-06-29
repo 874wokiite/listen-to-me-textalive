@@ -1,20 +1,4 @@
 export const tracks = [
-  // SUPERHERO / めろくる
-  {
-    url: "https://piapro.jp/t/hZ35/20240130103028",
-    options: {
-      video: {
-        // 音楽地図訂正履歴
-        beatId: 4592293,
-        chordId: 2727635,
-        repetitiveSegmentId: 2824326,
-        // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FhZ35%2F20240130103028
-        lyricId: 59415,
-        lyricDiffId: 13962,
-      },
-    },
-  },
-
   // いつか君と話したミライは / タケノコ少年
   {
     url: "https://piapro.jp/t/--OD/20240202150903",
@@ -29,7 +13,10 @@ export const tracks = [
         lyricDiffId: 13963,
       },
     },
+    background: "/images/bg-mirai.png",
+    backgroundPC: "/images/bg-mirai-PC.png",
   },
+
   // フューチャーノーツ / shikisai
   {
     url: "https://piapro.jp/t/XiaI/20240201203346",
@@ -44,7 +31,10 @@ export const tracks = [
         lyricDiffId: 13964,
       },
     },
+    background: "/images/bg-future.png",
+    backgroundPC: "/images/bg-future-PC.png",
   },
+
   // 未来交響曲 / ヤマギシコージ
   {
     url: "https://piapro.jp/t/Rejk/20240202164429",
@@ -59,7 +49,28 @@ export const tracks = [
         lyricDiffId: 13965,
       },
     },
+    background: "/images/bg-koushin.png",
+    backgroundPC: "/images/bg-koushin-PC.png",
   },
+
+  // SUPERHERO / めろくる
+  {
+    url: "https://piapro.jp/t/hZ35/20240130103028",
+    options: {
+      video: {
+        // 音楽地図訂正履歴
+        beatId: 4592293,
+        chordId: 2727635,
+        repetitiveSegmentId: 2824326,
+        // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FhZ35%2F20240130103028
+        lyricId: 59415,
+        lyricDiffId: 13962,
+      },
+    },
+    background: "/images/bg-hero.png",
+    backgroundPC: "/images/bg-hero-PC.png",
+  },
+
   // リアリティ / 歩く人
   {
     url: "https://piapro.jp/t/ELIC/20240130010349",
@@ -74,7 +85,10 @@ export const tracks = [
         lyricDiffId: 13966,
       },
     },
+    background: "",
+    backgroundPC: "/images/bg-reality-PC.png",
   },
+
   // The Marks / 2ouDNS
   {
     url: "https://piapro.jp/t/xEA7/20240202002556",
@@ -89,5 +103,7 @@ export const tracks = [
         lyricDiffId: 13967,
       },
     },
+    background: "/images/bg-marks.png",
+    backgroundPC: "/images/bg-marks-PC.png",
   },
 ];

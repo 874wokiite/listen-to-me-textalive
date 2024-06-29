@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Body from "./Body";
+import { tracks } from "./configs/Tracks";
 
-const Layout = () => {
+const Layout: React.FC = () => {
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+
   return (
     <>
-      <div className="layout__background">
+      <div
+        className="layout__background"
+        style={{
+          backgroundImage: `url(${tracks[currentTrackIndex].backgroundPC})`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
         <div className="layout__control-area">
-          <img
-            src="/images/bottom_decoration.png"
-            alt="none"
-            className="layout__background__bottom"
-          />
-          <img
-            src="/images/top_decoration.png"
-            alt="none"
-            className="layout__background__top"
-          />
-          <Body />
+          <Body setCurrentTrackIndex={setCurrentTrackIndex} />
         </div>
       </div>
     </>

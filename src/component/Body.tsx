@@ -8,14 +8,18 @@ import ControlSlide from "./ControlSlide";
 import Loading from "./Loading";
 import { tracks } from "./configs/Tracks";
 
-const Body = () => {
+interface BodyProps {
+  setCurrentTrackIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [player, setPlayer] = useState<Player | null>(null);
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
   const [lastText, setLastText] = useState("");
   const [textVolume, setTextVolume] = useState(0);
   const [musicVolume, setMusicVolume] = useState(60);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [currentTrackIndex, setTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
   const [playPauseValue, setPlayPauseValue] = useState(0);
@@ -126,7 +130,8 @@ const Body = () => {
   const handleSlideChange = (swiper: {
     realIndex: React.SetStateAction<number>;
   }) => {
-    setCurrentTrackIndex(swiper.realIndex);
+    setTrackIndex(swiper.realIndex);
+    setCurrentTrackIndex(swiper.realIndex); // 親コンポーネントの状態も更新
   };
 
   const handleTogglePlayPause = () => {
@@ -162,13 +167,18 @@ const Body = () => {
     }
   }, [lastText, text]);
 
-  console.log(player ? "ある!" : "ない...");
-  console.log(player?.data.song.name ? "ある!" : "ない...");
+  // console.log(player ? "ある!" : "ない...");
+  // console.log(player?.data.song.name ? "ある!" : "ない...");
 
   return (
     <>
       {player ? (
-        <div className="control-area">
+        <div
+          className="control-area"
+          style={{
+            backgroundImage: `url(${tracks[currentTrackIndex].background})`,
+          }}
+        >
           <MikuAnimation mikuValue={mikuValue} />
           <ControlAliving
             setTextVolume={setTextVolume}

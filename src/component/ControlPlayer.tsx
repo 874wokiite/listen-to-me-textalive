@@ -2,30 +2,6 @@ import React, { useEffect } from "react";
 import SeekBar from "./Seekbar";
 
 export const ControlPlayer: React.FC<any> = ({ player }) => {
-  // const sliderStyles = {
-  //   track: {
-  //     backgroundColor: "#ddd",
-  //     height: "16px",
-  //     borderRadius: "0",
-  //   },
-  //   active: {
-  //     backgroundColor: "#71CCC4",
-  //     height: "16px",
-  //     borderRadius: "0",
-  //   },
-  //   thumb: {
-  //     backgroundColor: "transparent",
-  //     width: "16px",
-  //     height: "16px",
-  //     borderRadius: "0",
-  //     boxShadow: "none",
-  //   },
-  //   disabled: {
-  //     backgroundColor: "#ccc",
-  //     borderRadius: "0",
-  //   },
-  // };
-
   useEffect(() => {
     // Player instance might be needed to manage within component lifecycle
     return () => {
