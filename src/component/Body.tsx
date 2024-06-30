@@ -24,12 +24,27 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [prevMikuValue, setPrevMikuValue] = useState(0);
   const [playPauseValue, setPlayPauseValue] = useState(0);
   const { togglePlayPause: playPause, status } = usePlayPause(player);
-  const playerToken = process.env.NEXT_PUBLIC_PLAYER_TOKEN;
+
+  // const playerToken = process.env.NEXT_PUBLIC_PLAYER_TOKEN;
 
   // if (!playerToken) {
   //   throw new Error("NEXT_PUBLIC_PLAYER_TOKEN is not defined");
   // }
   // TODO: パブリック化するときに環境変数にする
+
+  // 画像をプリロードする関数
+  const preloadImages = () => {
+    tracks.forEach((track) => {
+      const img = new Image();
+      img.src = track.background;
+      const imgPC = new Image();
+      imgPC.src = track.backgroundPC;
+    });
+  };
+
+  useEffect(() => {
+    preloadImages(); // コンポーネントがマウントされた時に画像をプリロード
+  }, []);
 
   useEffect(() => {
     const player = new Player({
@@ -167,9 +182,6 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
       setLastText(text);
     }
   }, [lastText, text]);
-
-  // console.log(player ? "ある!" : "ない...");
-  // console.log(player?.data.song.name ? "ある!" : "ない...");
 
   return (
     <>
