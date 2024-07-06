@@ -16,8 +16,8 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [player, setPlayer] = useState<Player | null>(null);
   const [wordText, setWordText] = useState("");
   const [phraseText, setPhraseText] = useState("");
-  const [textVolume, setTextVolume] = useState(1); // あとで0に戻す
-  const [musicVolume, setMusicVolume] = useState(0); // あとで60に戻す
+  const [textVolume, setTextVolume] = useState(0);
+  const [musicVolume, setMusicVolume] = useState(60);
   const [currentTrackIndex, setTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
@@ -121,6 +121,35 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     }
   };
 
+  const handleVolumeChange = (
+    textVolume: number,
+    musicVolume: number,
+    value: number
+  ) => {
+    setTextVolume(textVolume);
+    setMusicVolume(musicVolume);
+    if (player) {
+      player.volume = musicVolume;
+    }
+
+    if (status === "play") setMikuValue(value);
+    else {
+      setPrevMikuValue(value);
+      setMikuValue(0);
+    }
+  };
+
+  const handleAliveChange = (aliveValue: number) => {
+    // Alive の値に応じて handleVolumeChange を呼び出す
+    if (aliveValue === 3) {
+      handleVolumeChange(1, 0, 3);
+    } else if (aliveValue === 2) {
+      handleVolumeChange(0.8, 20, 2);
+    } else if (aliveValue === 1) {
+      handleVolumeChange(0, 60, 1);
+    }
+  };
+
   // 前後の曲に切り替わった時に更新をする
   useEffect(() => {
     const loadTrack = async () => {
@@ -200,14 +229,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
           }}
         >
           <MikuAnimation mikuValue={mikuValue} />
-          <ControlAliving
-            setTextVolume={setTextVolume}
-            setMusicVolume={setMusicVolume}
-            player={player}
-            setMikuValue={setMikuValue}
-            setPrevMikuValue={setPrevMikuValue}
-            status={status}
-          />
+          <ControlAliving onAliveChange={handleAliveChange} />
           <ControlPlayer player={player} />
           <ControlSlide
             handleSlideChange={handleSlideChange}
