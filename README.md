@@ -39,14 +39,16 @@ textaliveって言うけど、目を瞑ったら別に生きてないよな？
 
 
 ## 動作環境
-PC版
+PC版(Mac, Windows)
 - Chrome
 - Firefox
 - Safari
 
 SP版
-- Chrome(※iOS, Android)
-- Safari(※iOS)
-※iOSだとテキスト読み上げが動作していませんTT
+- Chrome(※iPhone, Android)
+- Safari(※iPhone)
+
+※iPhone, iPadだとテキスト読み上げが動作していませんTT
+(MacBookはいずれも動作する)
 
 
