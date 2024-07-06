@@ -162,6 +162,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
       if (player) {
         player.requestPause();
       }
+      speechSynthesis.cancel(); // 追加: 再生停止時に音声合成も停止する
     } else if (status === "pause" || status === "stop") {
       setMikuValue(prevMikuValue);
       setPlayPauseValue(1);
@@ -170,6 +171,9 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
       console.log("preMikuValue", prevMikuValue);
       if (player) {
         player.requestPlay();
+      }
+      if (text && text !== lastText) {
+        speakText(text); // 追加: 再生開始時に音声合成も再生する
       }
     }
     playPause();
