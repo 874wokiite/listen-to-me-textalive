@@ -10,15 +10,11 @@ export const Heart: React.FC<any> = () => {
     stateMachines: STATE_MACHINE_NAME,
     artboard: "Heart",
   });
-  // const animation = useStateMachineInput(rive, STATE_MACHINE_NAME, INPUT_NAME);
 
   return (
     <>
       <div className="heart">
-        <RiveComponentTouch
-          className="heart__size"
-          // onClick={() => animation.fire()}
-        />
+        <RiveComponentTouch className="heart__size" />
       </div>
     </>
   );
