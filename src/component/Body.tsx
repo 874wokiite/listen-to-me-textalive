@@ -17,8 +17,8 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
   const [lastText, setLastText] = useState("");
-  const [textVolume, setTextVolume] = useState(0);
-  const [musicVolume, setMusicVolume] = useState(60);
+  const [textVolume, setTextVolume] = useState(1); // あとで0に戻す
+  const [musicVolume, setMusicVolume] = useState(0); // あとで60に戻す
   const [currentTrackIndex, setTrackIndex] = useState(0);
   const [mikuValue, setMikuValue] = useState(1);
   const [prevMikuValue, setPrevMikuValue] = useState(0);
