@@ -99,6 +99,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   };
 
   const speakText = (text: string) => {
+    speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     utterance.volume = textVolume;
@@ -176,7 +177,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
 
   useEffect(() => {
     if (text && text !== lastText) {
-      if (textVolume >= 0.8) {
+      if (status === "play") {
         speakText(text);
       }
       setLastText(text);
