@@ -48,7 +48,6 @@ SP版
 - Chrome(※iPhone, Android)
 - Safari(※iPhone)
 
-※iPhone, iPadだとテキスト読み上げが動作していませんTT
+※iPhone, iPadで音源の音量が変わらない場合があります
 (MacBookはいずれも動作する)
-
 
