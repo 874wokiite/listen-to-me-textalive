@@ -14,8 +14,8 @@ interface BodyProps {
 
 const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [player, setPlayer] = useState<Player | null>(null);
-  const [text, setText] = useState("");
-  const [phrase, setPhrase] = useState("");
+  const [wordText, setWordText] = useState("");
+  const [phraseText, setPhraseText] = useState("");
   const [textVolume, setTextVolume] = useState(1); // あとで0に戻す
   const [musicVolume, setMusicVolume] = useState(0); // あとで60に戻す
   const [currentTrackIndex, setTrackIndex] = useState(0);
@@ -77,8 +77,12 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     let phrase = player.video?.firstPhrase;
     while (phrase && phrase.next) {
       phrase.animate = (now, unit) => {
-        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
-          setPhrase(unit.text);
+        if (
+          unit.startTime <= now &&
+          unit.endTime > now &&
+          phraseText !== unit.text
+        ) {
+          setPhraseText(unit.text);
         }
       };
       phrase = phrase.next;
@@ -89,8 +93,12 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     let word = player.video?.firstWord;
     while (word && word.next) {
       word.animate = (now, unit) => {
-        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
-          setText(unit.text);
+        if (
+          unit.startTime <= now &&
+          unit.endTime > now &&
+          wordText !== unit.text
+        ) {
+          setWordText(unit.text);
         }
       };
       word = word.next;
@@ -128,8 +136,8 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
               alert("トラックの読み込みに失敗しました。再試行してください。");
             });
           player.requestStop();
-          setPhrase(" ");
-          setText(" ");
+          setPhraseText(" ");
+          setWordText(" ");
           if (mikuValue !== 0) setPrevMikuValue(mikuValue);
           setMikuValue(0);
           setPlayPauseValue(0);
@@ -171,16 +179,16 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
       if (player) {
         player.requestPlay();
       }
-      if (text) {
-        speakText(text); // 追加: 再生開始時に音声合成も再生する
+      if (wordText) {
+        speakText(wordText); // 追加: 再生開始時に音声合成も再生する
       }
     }
     playPause();
   };
 
   useEffect(() => {
-    if (text) speakText(text);
-  }, [text]);
+    if (wordText) speakText(wordText);
+  }, [wordText]);
 
   return (
     <>
@@ -205,7 +213,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
             handleSlideChange={handleSlideChange}
             handleTogglePlayPause={handleTogglePlayPause}
             tracks={tracks}
-            phrase={phrase}
+            phraseText={phraseText}
             playPauseValue={playPauseValue}
           />
         </div>

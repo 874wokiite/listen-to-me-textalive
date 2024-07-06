@@ -11,7 +11,7 @@ export const ControlSlide: React.FC<any> = ({
   handleSlideChange,
   handleTogglePlayPause,
   tracks,
-  phrase = " ",
+  phraseText = " ",
   playPauseValue,
 }) => {
   return (
@@ -53,7 +53,7 @@ export const ControlSlide: React.FC<any> = ({
                 </button>
               </div>
               <div className="lyrics__layout">
-                <p className="fontsize__lyrics lyrics">{phrase}</p>
+                <p className="fontsize__lyrics lyrics">{phraseText}</p>
               </div>
             </SwiperSlide>
           ))}
