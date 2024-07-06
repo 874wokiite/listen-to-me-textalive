@@ -102,7 +102,8 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
-    utterance.volume = textVolume;
+    // utterance.volume = textVolume;
+    utterance.volume = 1;
     utterance.rate = 1.5;
     utterance.onerror = (event) => {
       console.error("Speech synthesis error:", event.error);
