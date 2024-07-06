@@ -18,7 +18,8 @@ textaliveって言うけど、目を瞑ったら別に生きてないよな？
 テキスト読み上げと楽曲の音量バランスが変わるたびにミクのアニメーションが変化します。
 
 目も耳もtextaliveです！！！！！
-![textalive image](https://github.com/874wokiite/listen-to-me-textalive/assets/98846813/cc8ceb30-14af-4e28-b5af-ac55a20dc0b9)
+
+[![textalivevideo](https://github.com/874wokiite/listen-to-me-textalive/assets/98846813/4ddf27e9-a1dd-447b-9cfd-2ea995aad22c)](https://github.com/874wokiite/listen-to-me-textalive/assets/98846813/cc8ceb30-14af-4e28-b5af-ac55a20dc0b9)
 
 ## できること
 - 楽曲の再生/一時停止
