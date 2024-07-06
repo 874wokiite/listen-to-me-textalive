@@ -16,7 +16,6 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   const [player, setPlayer] = useState<Player | null>(null);
   const [text, setText] = useState("");
   const [phrase, setPhrase] = useState("");
-  const [lastText, setLastText] = useState("");
   const [textVolume, setTextVolume] = useState(1); // あとで0に戻す
   const [musicVolume, setMusicVolume] = useState(0); // あとで60に戻す
   const [currentTrackIndex, setTrackIndex] = useState(0);
@@ -74,18 +73,6 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     };
   }, []);
 
-  const animateWords = (player: Player) => {
-    let word = player.video?.firstWord;
-    while (word && word.next) {
-      word.animate = (now, unit) => {
-        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
-          setText(unit.text);
-        }
-      };
-      word = word.next;
-    }
-  };
-
   const animatePhrases = (player: Player) => {
     let phrase = player.video?.firstPhrase;
     while (phrase && phrase.next) {
@@ -98,12 +85,23 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
     }
   };
 
+  const animateWords = (player: Player) => {
+    let word = player.video?.firstWord;
+    while (word && word.next) {
+      word.animate = (now, unit) => {
+        if (unit.startTime <= now && unit.endTime > now && text !== unit.text) {
+          setText(unit.text);
+        }
+      };
+      word = word.next;
+    }
+  };
+
   const speakText = (text: string) => {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
-    // utterance.volume = textVolume;
-    utterance.volume = 1;
+    utterance.volume = textVolume;
     utterance.rate = 1.5;
     utterance.onerror = (event) => {
       console.error("Speech synthesis error:", event.error);
@@ -173,7 +171,7 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
       if (player) {
         player.requestPlay();
       }
-      if (text && text !== lastText) {
+      if (text) {
         speakText(text); // 追加: 再生開始時に音声合成も再生する
       }
     }
@@ -181,13 +179,8 @@ const Body: React.FC<BodyProps> = ({ setCurrentTrackIndex }) => {
   };
 
   useEffect(() => {
-    if (text && text !== lastText) {
-      if (status === "play") {
-        speakText(text);
-      }
-      setLastText(text);
-    }
-  }, [lastText, text]);
+    if (text) speakText(text);
+  }, [text]);
 
   return (
     <>
